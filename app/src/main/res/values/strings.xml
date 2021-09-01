@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MyChats</string>
+    <string name="ip_192_168_1_1">IP : 192.168.1.1</string>
+    <string name="send">Send</string>
+    <string name="type_message_here">Type Message Here</string>
+    <string name="received_message">received message</string>
+    <string name="time">time</string>
+    <string name="my_massage">my Massage</string>
+    <string name="ip_item">Ip Item</string>
+    <string name="connect">Connect</string>
+    <string name="show_message">Show Message</string>
+    <string name="scan_ip">Scan IP</string>
+    <string name="from">From</string>
+</resources>
