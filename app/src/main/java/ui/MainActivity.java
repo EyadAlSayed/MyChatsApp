@@ -10,6 +10,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallB
 
         context = this;
 
-
         INI_restAPI();
         INI_webSocket();
         INI_Rc();
@@ -94,8 +94,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallB
             overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
         }
         };
-
-
 
     private final View.OnClickListener onConnectPressed  = new View.OnClickListener() {
         @Override
@@ -180,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallB
 
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
-                System.out.println(t.toString());
+                Log.i("retrofit",t.toString());
             }
         });
 
@@ -191,13 +189,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallB
         {
             String BASE_URI = "ws://192.168.1.101:3030/myChat";
             chatSocket = new ChatSocket(URI.create(BASE_URI));
+
         }
         return chatSocket;
     }
 
 
     private void INI_Rc(){
-
         RecyclerView rc = findViewById(R.id.rc_ip);
         rc.setHasFixedSize(true);
         RecyclerView.LayoutManager rcl = new LinearLayoutManager(this);
@@ -216,12 +214,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallB
 
         api = retrofit.create(RestAPI.class);
     }
-
-
     private void INI_webSocket(){
+        getChatSocket().setConnectTimeout(10000);
+        getChatSocket().setReadTimeout(60000);
+        getChatSocket().enableAutomaticReconnection(5000);
         getChatSocket().connect();
     }
-
 
     @Override
     public void slideToAnOtherActivity() {
